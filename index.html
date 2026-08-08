@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>For You ❤️</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap');
+
+    :root {
+      --bg: #fff8f7;
+      --card: rgba(255, 255, 255, 0.78);
+      --primary: #b85c6f;
+      --primary-dark: #8e3f51;
+      --text: #3d3033;
+      --muted: #927b80;
+      --border: rgba(184, 92, 111, 0.14);
+      --shadow: 0 15px 45px rgba(120, 60, 75, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "DM Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 205, 214, 0.35), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(255, 225, 220, 0.45), transparent 25%),
+        var(--bg);
+      overflow-x: hidden;
+    }
+
+    /* -------------------------
+       Floating Hearts
+    ------------------------- */
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      color: rgba(184, 92, 111, 0.12);
+      font-size: 18px;
+      animation: floatUp linear infinite;
+    }
+
+    .heart:nth-child(1) {
+      left: 8%;
+      animation-duration: 12s;
+      animation-delay: 1s;
+    }
+
+    .heart:nth-child(2) {
+      left: 22%;
+      animation-duration: 15s;
+      animation-delay: 4s;
+    }
+
+    .heart:nth-child(3) {
+      left: 45%;
+      animation-duration: 11s;
+      animation-delay: 2s;
+    }
+
+    .heart:nth-child(4) {
+      left: 68%;
+      animation-duration: 14s;
+      animation-delay: 5s;
+    }
+
+    .heart:nth-child(5) {
+      left: 88%;
+      animation-duration: 13s;
+      animation-delay: 3s;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-110vh) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    /* -------------------------
+       Main
+    ------------------------- */
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(1000px, 92%);
+      margin: auto;
+      padding: 70px 0 50px;
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .small-title {
+      color: var(--primary);
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(48px, 8vw, 82px);
+      line-height: 1;
+      font-weight: 500;
+      color: var(--primary-dark);
+    }
+
+    .hero h1 span {
+      display: block;
+      font-size: 0.48em;
+      color: var(--text);
+      margin-top: 14px;
+      font-family: "DM Sans", sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .hero p {
+      margin: 28px auto 0;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .divider {
+      width: 50px;
+      height: 1px;
+      background: var(--primary);
+      margin: 35px auto;
+      opacity: 0.5;
+    }
+
+    /* -------------------------
+       Cards
+    ------------------------- */
+
+    .cards {
+      margin-top: 55px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      padding: 30px;
+      min-height: 210px;
+      border-radius: 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      overflow: hidden;
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 55px rgba(120, 60, 75, 0.13);
+      border-color: rgba(184, 92, 111, 0.3);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(184, 92, 111, 0.08);
+      font-size: 21px;
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 25px;
+      font-weight: 500;
+      margin-bottom: 9px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 330px;
+    }
+
+    .card-arrow {
+      position: absolute;
+      right: 25px;
+      bottom: 25px;
+      color: var(--primary);
+      font-size: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-arrow {
+      transform: translateX(5px);
+    }
+
+    /* -------------------------
+       Footer
+    ------------------------- */
+
+    footer {
+      text-align: center;
+      margin-top: 70px;
+      color: #aa9297;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    /* -------------------------
+       Modal
+    ------------------------- */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+
+      background: rgba(55, 30, 35, 0.38);
+      backdrop-filter: blur(8px);
+
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s ease;
+    }
+
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      position: relative;
+      width: min(650px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #fffaf9;
+      border-radius: 25px;
+      padding: 45px;
+      box-shadow: 0 30px 80px rgba(50, 20, 30, 0.2);
+
+      transform: translateY(20px) scale(0.98);
+      transition: 0.3s ease;
+    }
+
+    .modal.active .modal-content {
+      transform: translateY(0) scale(1);
+    }
+
+    .close {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      width: 35px;
+      height: 35px;
+      border: none;
+      background: rgba(184, 92, 111, 0.08);
+      color: var(--primary-dark);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .modal-title {
+      font-family: "Playfair Display", serif;
+      font-size: 36px;
+      color: var(--primary-dark);
+      margin-bottom: 20px;
+    }
+
+    .modal-text {
+      color: #665459;
+      line-height: 1.9;
+      font-size: 15px;
+      white-space: pre-line;
+    }
+
+    /* -------------------------
+       Photo Carousel
+    ------------------------- */
+
+    .carousel {
+      position: relative;
+    }
+
+    .photo-frame {
+      height: 420px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #f3e7e5;
+      position: relative;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+
+    .photo-caption {
+      text-align: center;
+      margin-top: 15px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.88);
+      color: var(--primary-dark);
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .prev {
+      left: 12px;
+    }
+
+    .next {
+      right: 12px;
+    }
+
+    /* -------------------------
+       Memories
+    ------------------------- */
+
+    .memory-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .memory {
+      display: flex;
+      gap: 18px;
+      padding: 18px;
+      border-radius: 15px;
+      background: rgba(184, 92, 111, 0.05);
+    }
+
+    .memory-number {
+      min-width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(184, 92, 111, 0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .memory h3 {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .memory p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* -------------------------
+       Letter
+    ------------------------- */
+
+    .letter {
+      font-family: "Playfair Display", serif;
+      font-size: 19px;
+      line-height: 2;
+      color: #594348;
+    }
+
+    .signature {
+      margin-top: 30px;
+      color: var(--primary);
+      font-family: "Playfair Display", serif;
+      font-size: 23px;
+    }
+
+    /* -------------------------
+       Responsive
+    ------------------------- */
+
+    @media (max-width: 650px) {
+      main {
+        padding-top: 50px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: 180px;
+      }
+
+      .modal-content {
+        padding: 35px 25px;
+      }
+
+      .photo-frame {
+        height: 350px;
+      }
+
+      .modal-title {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating hearts -->
+  <div class="hearts">
+    <div class="heart">♡</div>
+    <div class="heart">♥</div>
+    <div class="heart">♡</div>
+    <div class="heart">♥</div>
+    <div class="heart">♡</div>
+  </div>
+
+
+  <main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="small-title">
+        A little something for you
+      </div>
+
+      <h1>
+        Happy Birthday
+        <span>to my favourite person</span>
+      </h1>
+
+      <div class="divider"></div>
+
+      <p>
+        Some moments deserve more than just a birthday message.
+        So I made you a little corner filled with things that
+        remind me of you.
+      </p>
+
+    </section>
+
+
+    <!-- CARDS -->
+
+    <section class="cards">
+
+      <!-- Birthday Wish -->
+
+      <div class="card" onclick="openModal('wishModal')">
+
+        <div class="card-icon">🎂</div>
+
+        <h2>Birthday Wish</h2>
+
+        <p>
+          A few words that I couldn't fit into an ordinary
+          birthday message.
+        </p>
+
+        <div class="card-arrow">→</div>
+
+      </div>
+
+
+      <!-- Photos -->
+
+      <div class="card" onclick="openModal('photosModal')">
+
+        <div class="card-icon">📷</div>
+
+        <h2>Our Photos</h2>
+
+        <p>
+          Little snapshots of us that I never want to forget.
+        </p>
+
+        <div class="card-arrow">→</div>
+
+      </div>
+
+
+      <!-- Memories -->
+
+      <div class="card" onclick="openModal('memoriesModal')">
+
+        <div class="card-icon">♡</div>
+
+        <h2>Our Memories</h2>
+
+        <p>
+          The little moments that somehow became my favourite ones.
+        </p>
+
+        <div class="card-arrow">→</div>
+
+      </div>
+
+
+      <!-- Letter -->
+
+      <div class="card" onclick="openModal('letterModal')">
+
+        <div class="card-icon">💌</div>
+
+        <h2>A Little Something</h2>
+
+        <p>
+          Because there are some things I'd rather tell you
+          than put on a birthday card.
+        </p>
+
+        <div class="card-arrow">→</div>
+
+      </div>
+
+    </section>
+
+
+    <footer>
+      Made with a little bit of love · For you ❤️
+    </footer>
+
+  </main>
+
+
+  <!-- =========================
+       BIRTHDAY WISH MODAL
+  ========================== -->
+
+  <div class="modal" id="wishModal">
+
+    <div class="modal-content">
+
+      <button class="close" onclick="closeModal('wishModal')">
+        ×
+      </button>
+
+      <h2 class="modal-title">
+        Happy Birthday ❤️
+      </h2>
+
+      <div class="modal-text">
+
+        Happy birthday to the person who makes
+        ordinary days feel a little more special.
+
+        I hope this year brings you everything
+        you've been quietly wishing for.
+
+        More happiness.
+        More adventures.
+        More reasons to smile.
+
+        And hopefully...
+        a lot more memories for us to make together.
+
+        You deserve a beautiful year.
+
+        Happy Birthday, love. ❤️
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       PHOTOS MODAL
+  ========================== -->
+
+  <div class="modal" id="photosModal">
+
+    <div class="modal-content">
+
+      <button class="close" onclick="closeModal('photosModal')">
+        ×
+      </button>
+
+      <h2 class="modal-title">
+        Us 📷
+      </h2>
+
+      <div class="carousel">
+
+        <div class="photo-frame">
+
+          <!--
+            Replace these URLs with your photos.
+
+            Example:
+            images/photo1.jpg
+            images/photo2.jpg
+          -->
+
+          <img
+            id="carouselImage"
+            src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=80"
+            alt="Our memory"
+          />
+
+        </div>
+
+        <button
+          class="carousel-btn prev"
+          onclick="previousPhoto()">
+          ‹
+        </button>
+
+        <button
+          class="carousel-btn next"
+          onclick="nextPhoto()">
+          ›
+        </button>
+
+        <div class="photo-caption" id="photoCaption">
+          One of my favourite moments.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       MEMORIES MODAL
+  ========================== -->
+
+  <div class="modal" id="memoriesModal">
+
+    <div class="modal-content">
+
+      <button class="close" onclick="closeModal('memoriesModal')">
+        ×
+      </button>
+
+      <h2 class="modal-title">
+        Little Memories ♡
+      </h2>
+
+      <div class="memory-list">
+
+        <div class="memory">
+
+          <div class="memory-number">01</div>
+
+          <div>
+            <h3>The first time we...</h3>
+            <p>
+              Add your own story here. Something small
+              that both of you remember.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="memory">
+
+          <div class="memory-number">02</div>
+
+          <div>
+            <h3>That one unforgettable day</h3>
+            <p>
+              Write about a day that still makes you
+              smile whenever you think about it.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="memory">
+
+          <div class="memory-number">03</div>
+
+          <div>
+            <h3>Our random moments</h3>
+            <p>
+              The silly conversations, unexpected plans,
+              laughs and everything in between.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="memory">
+
+          <div class="memory-number">04</div>
+
+          <div>
+            <h3>Still counting...</h3>
+            <p>
+              Because hopefully, the best memories
+              are still ahead of us.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       LETTER MODAL
+  ========================== -->
+
+  <div class="modal" id="letterModal">
+
+    <div class="modal-content">
+
+      <button class="close" onclick="closeModal('letterModal')">
+        ×
+      </button>
+
+      <h2 class="modal-title">
+        Just Between Us 💌
+      </h2>
+
+      <div class="letter">
+
+        There are so many things I could say today.
+
+        But honestly, I'm just really happy that
+        you're part of my life.
+
+        Thank you for all the little things you do,
+        the conversations, the laughs,
+        the patience, the random moments,
+        and simply being you.
+
+        I don't know what the next chapters
+        are going to look like.
+
+        But I know I'd love to keep making
+        memories with you.
+
+        So here's to another year of you...
+
+        and hopefully another year of us.
+
+        <div class="signature">
+          With love,<br>
+          Your favourite person ❤️
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =========================
+       MODALS
+    ========================== */
+
+    function openModal(id) {
+      document.getElementById(id).classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+
+    /* Close modal when clicking outside */
+
+    document.querySelectorAll(".modal").forEach(modal => {
+
+      modal.addEventListener("click", function(e) {
+
+        if (e.target === modal) {
+          modal.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+
+      });
+
+    });
+
+
+    /* Escape key */
+
+    document.addEventListener("keydown", function(e) {
+
+      if (e.key === "Escape") {
+
+        document.querySelectorAll(".modal.active")
+          .forEach(modal => {
+            modal.classList.remove("active");
+          });
+
+        document.body.style.overflow = "";
+
+      }
+
+    });
+
+
+    /* =========================
+       PHOTO CAROUSEL
+    ========================== */
+
+    const photos = [
+
+      {
+        src: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=80",
+        caption: "One of my favourite moments."
+      },
+
+      {
+        src: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=900&q=80",
+        caption: "A moment worth keeping."
+      },
+
+      {
+        src: "https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?auto=format&fit=crop&w=900&q=80",
+        caption: "Us, being us."
+      }
+
+    ];
+
+    let currentPhoto = 0;
+
+
+    function updatePhoto() {
+
+      const image =
+        document.getElementById("carouselImage");
+
+      const caption =
+        document.getElementById("photoCaption");
+
+      image.style.opacity = "0";
+
+      setTimeout(() => {
+
+        image.src = photos[currentPhoto].src;
+        caption.textContent = photos[currentPhoto].caption;
+
+        image.style.opacity = "1";
+
+      }, 150);
+
+    }
+
+
+    function nextPhoto() {
+
+      currentPhoto++;
+
+      if (currentPhoto >= photos.length) {
+        currentPhoto = 0;
+      }
+
+      updatePhoto();
+    }
+
+
+    function previousPhoto() {
+
+      currentPhoto--;
+
+      if (currentPhoto < 0) {
+        currentPhoto = photos.length - 1;
+      }
+
+      updatePhoto();
+    }
+
+
+    /* Keyboard carousel */
+
+    document.addEventListener("keydown", function(e) {
+
+      const photosModal =
+        document.getElementById("photosModal");
+
+      if (!photosModal.classList.contains("active")) {
+        return;
+      }
+
+      if (e.key === "ArrowRight") {
+        nextPhoto();
+      }
+
+      if (e.key === "ArrowLeft") {
+        previousPhoto();
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
